@@ -1,4 +1,5 @@
 from wsgiref.util import setup_testing_defaults
+from cgi import FieldStorage
 from .generic_views import not_found_404_view, server_error_500_view
 
 #  TODO get post delete etc methods
@@ -56,12 +57,12 @@ class Application:
         elif method == "POST":
             try:
                 request_body_size = int(environ['CONTENT_LENGTH'])
-                request_body = environ['wsgi.input'].read(request_body_size)
             except (TypeError, ValueError):
                 request_body_size = 0
-                request_body = "0"
             request["size"] = request_body_size
-            request["body"] = request_body
+            request["post"] = FieldStorage(fp=environ['wsgi.input'],
+                                           environ=environ,
+                                           keep_blank_values=True)
             status, headers, response_body = self.post(view, request)
         start_response(status, headers)
         return [bytes(response_body, encoding='utf-8')]

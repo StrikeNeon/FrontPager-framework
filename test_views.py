@@ -9,8 +9,10 @@ def index_view(request):
 
 def abc_view(request):
     print(request)
-    return render("./templates/names.html", object_list=[{'name': 'a'}, {'name': 'n'}])
-
+    if request["method"] == "GET":
+        return render("./templates/names.html", object_list=[{'name': 'User'}])
+    elif request["method"] == "POST":
+        return render("./templates/names.html", object_list=[request["post"]['name']])
 
 class Other:
 
