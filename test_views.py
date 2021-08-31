@@ -9,18 +9,18 @@ def index_view(request):
 
 def abc_view(request):
     print(request)
-    return render("./templates/authors.html", object_list=[{'name': 'a'}, {'name': 'n'}])
+    return render("./templates/names.html", object_list=[{'name': 'a'}, {'name': 'n'}])
 
 
 class Other:
 
     def __call__(self, request):
         print(request)
-        render("./templates/authors.html", object_list=[{'name': 'meo'}, {'name': 'keo'}])
+        return render("./templates/othernames.html", object_list=[{'name': 'meo'}, {'name': 'keo'}])
 
 
 routes = {
     '/': index_view,
-    '/abc/': abc_view,
-    '/other/': Other()
+    '/names/': abc_view,
+    '/othernames/': Other()
 }

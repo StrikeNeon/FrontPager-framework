@@ -18,6 +18,7 @@ class Application:
         return status, headers, response_body
 
     def post(self, view, request):
+        print(request)
         try:
             response_body = view(request)
         except Exception as ex:
@@ -36,17 +37,21 @@ class Application:
         setup_testing_defaults(environ)
         print('work')
         path = environ['PATH_INFO']
+        if path[-1] != '/':
+            path += '/'
         method = environ['REQUEST_METHOD']
+        request = {}
+        request["path"] = path
+        request["method"] = method
         if path in self.routes:
             view = self.routes[path]
         else:
-            view = not_found_404_view()
-        request = {}
-        request["path"] = path
+            view = not_found_404_view(request)
         # front controller
         for front in self.fronts:
             front(request)
         if method == "GET":
+            print(view)
             status, headers, response_body = self.get(view, request)
         elif method == "POST":
             try:
