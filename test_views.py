@@ -12,7 +12,9 @@ def abc_view(request):
     if request["method"] == "GET":
         return render("./templates/names.html", object_list=[{'name': 'User'}])
     elif request["method"] == "POST":
-        return render("./templates/names.html", object_list=[request["post"]['name']])
+        print(request["post"]['name'].value)
+        return render("./templates/names.html", object_list=[{'name': request["post"]['name'].value}])
+
 
 class Other:
 
