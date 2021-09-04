@@ -7,8 +7,8 @@ from .generic_views import not_found_404_view, server_error_500_view
 
 class Application:
 
-    def __init__(self, fronts):
-        self.routes = {}
+    def __init__(self, fronts, routes={}):
+        self.routes = routes
         self.fronts = fronts
 
     # def add_route(self, path):
