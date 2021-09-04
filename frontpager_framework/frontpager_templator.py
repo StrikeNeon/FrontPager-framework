@@ -1,4 +1,5 @@
 from jinja2 import Template
+from jinja2 import Environment, FileSystemLoader
 
 
 def render(template_name, **kwargs):
@@ -11,6 +12,7 @@ def render(template_name, **kwargs):
     # Открываем шаблон по имени
     with open(template_name, encoding='utf-8') as f:
         # Читаем
-        template = Template(f.read())
-    # рендерим шаблон с параметрами
-    return template.render(**kwargs)
+        template_str = f.read()
+    template = Environment(loader=FileSystemLoader("templates/")).from_string(template_str)
+    return template.render(default_start_page_lanes=template,
+                           **kwargs)

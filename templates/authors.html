@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Authors</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}<title>Authors</title>{% endblock %}
+
+{% block content %}
     <h1>Авторы</h1>
     <ul>
         {{object_list[0]}}
@@ -19,5 +16,4 @@
             <li>{{author.name}}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

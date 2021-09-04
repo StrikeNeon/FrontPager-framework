@@ -1,6 +1,5 @@
 from frontpager_framework.frontpager_templator import render
 
-
 # page controller
 def index_view(request):
     print(request)
@@ -13,6 +12,8 @@ def abc_view(request):
         return render("./templates/names.html", object_list=[{'name': 'User'}])
     elif request["method"] == "POST":
         print(request["post"]['name'].value)
+        print(request["post"]['password'].value)
+        print(request["post"]['email'].value)
         return render("./templates/names.html", object_list=[{'name': request["post"]['name'].value}])
 
 

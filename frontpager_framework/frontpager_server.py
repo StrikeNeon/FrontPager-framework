@@ -7,9 +7,27 @@ from .generic_views import not_found_404_view, server_error_500_view
 
 class Application:
 
-    def __init__(self, routes, fronts):
-        self.routes = routes
+    def __init__(self, fronts):
+        self.routes = {}
         self.fronts = fronts
+
+    # def add_route(self, path):
+    #     def _add_route(func):
+    #         def wrapper(self, path):
+    #             if hasattr(func, '__call__'):
+    #                 self.routes[path] = func
+    #             else:
+    #                 raise AttributeError(f"{func} view is not callable")
+    #         return wrapper
+    #     return _add_route
+
+    def add_route(self, path):
+        def wrapper(func):
+            if hasattr(func, '__call__'):
+                self.routes[path] = func
+            else:
+                raise AttributeError(f"{func} view is not callable")
+        return wrapper
 
     def get(self, view, request):
         response_body = view(request)
