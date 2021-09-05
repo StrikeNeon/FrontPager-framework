@@ -1,4 +1,3 @@
-from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
 
 

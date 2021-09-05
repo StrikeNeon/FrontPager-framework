@@ -11,16 +11,6 @@ class Application:
         self.routes = routes
         self.fronts = fronts
 
-    # def add_route(self, path):
-    #     def _add_route(func):
-    #         def wrapper(self, path):
-    #             if hasattr(func, '__call__'):
-    #                 self.routes[path] = func
-    #             else:
-    #                 raise AttributeError(f"{func} view is not callable")
-    #         return wrapper
-    #     return _add_route
-
     def add_route(self, path):
         def wrapper(func):
             if hasattr(func, '__call__'):
@@ -52,7 +42,7 @@ class Application:
                    ('Content-Length', str(len(response_body)))]
         return status, headers, response_body
 
-    def __call__(self, environ, start_response):
+    def serve(self, environ, start_response):
         setup_testing_defaults(environ)
         print('work')
         path = environ['PATH_INFO']
@@ -84,3 +74,8 @@ class Application:
             status, headers, response_body = self.post(view, request)
         start_response(status, headers)
         return [bytes(response_body, encoding='utf-8')]
+
+    def __call__(self, environ=None, start_response=None):
+        if not environ:
+            return
+        return self.serve(environ, start_response)

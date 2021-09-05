@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css" />
-  <title>{% block title %}{% endblock %} - My Webpage</title>
+  <p>head</p>
+  <meta charset="UTF-8">
+  {% block header %}{% endblock %}
 </head>
 <body>
   <div id="content">
+    <p>content</p>
     {% block content %}{% endblock %}
 <div id="footer">
+    <p>footer</p>
     {% block footer %}
-    &copy; footer</a>.
     {% endblock %}
   </div>
 </body>

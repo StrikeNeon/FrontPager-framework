@@ -2,15 +2,15 @@ from frontpager_framework.frontpager_server import Application
 from test_fronts import fronts
 from frontpager_framework.frontpager_templator import render
 
-application = Application(fronts)
+app = Application(fronts)
 
 # page controller
-@application.add_route("/")
+@app.add_route("/")
 def index_view(request):
     print(request)
     return render("./templates/authors.html", object_list=[{'name': 'Leo'}, {'name': 'Kate'}])
 
-@application.add_route("/names/")
+@app.add_route("/names/")
 def abc_view(request):
     print(request)
     if request["method"] == "GET":
@@ -24,9 +24,7 @@ def abc_view(request):
 
 class Other:
 
-    @application.add_route("/othernames/")
+    @app.add_route("/othernames/")
     def __call__(self, request):
         print(request)
         return render("./templates/othernames.html", object_list=[{'name': 'meo'}, {'name': 'keo'}])
-
-print(application.routes)
