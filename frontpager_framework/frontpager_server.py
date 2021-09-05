@@ -234,6 +234,7 @@ class ConcreteApplication(AbstractApplication):
 
 
 class AppFactory:
+    @staticmethod
     def create_app(fronts=[], routes={}, template_path="templates/"):
         app = ConcreteApplication(fronts, routes, template_path)
         return app
